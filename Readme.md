@@ -19,7 +19,11 @@ Requisitos:
 - Conocimientos básicos en microservicios
 
 
-Para utilizar esta aplicación, debe clonar el repositorio en su computadora, ejecutarlo y en tomcat ingresar:
+Para utilizar esta aplicación, debe clonar el repositorio en su computadora, 
+- Construirlo (En el terminal) ".\gradlew build"
+- ejecutarlo  (En el terminal) ".\gradlew bootRun"
+ 
+Y en tomcat ingresar:
 
 Un JSON con POST en la URL http://localhost:8080/client/insert
 
