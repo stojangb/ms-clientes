@@ -15,7 +15,7 @@
 
 Requisitos:
 - Java 11
-- IDE de su preferencia
+- IDE de su preferencia (edición o revisión)
 - Conocimientos básicos en microservicios
 
 
