@@ -1,7 +1,7 @@
 package com.quiz.msclient.service;
 
 import com.quiz.msclient.exception.EmailAlreadyExitsException;
-import com.quiz.msclient.exception.InvalidEmailExecption;
+import com.quiz.msclient.exception.InvalidEmailException;
 import com.quiz.msclient.exception.InvalidPasswordException;
 import com.quiz.msclient.functions.EmailValidator;
 import com.quiz.msclient.functions.PasswordValidator;
@@ -18,53 +18,36 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
     private BCryptPasswordEncoder bcrypt;
     @Autowired
     private PasswordValidator passwordValidator;
-    List<String> listaCorreo = new ArrayList<>();
-    boolean correoYaIngresado = false;
-    boolean contrasenaSegura = false;
-
-
+    List<String> listEmail = new ArrayList<>();
     public Client agregar(Client client) {
-        List<Phone> phones =
+        List<Phone> phone =
                 client.getPhones().stream()
-                .map(phone1 -> {
-                    return phone1
-                            .builder()
-                            .client(client)
-                            .cityCode(phone1.getCityCode())
-                            .countryCode(phone1.getCountryCode())
-                            .number(phone1.getNumber())
-                            .build();
-
-                }).collect(Collectors.toList());
-
-        client.setPhones(phones);
-
-
+                .map(phones -> phones
+                        .builder()
+                        .client(client)
+                        .cityCode(phones.getCityCode())
+                        .countryCode(phones.getCountryCode())
+                        .number(phones.getNumber())
+                        .build()).collect(Collectors.toList());
+        client.setPhones(phone);
         if (passwordValidator.isValid(client.getPassword().toString()) == false){
-            throw new InvalidPasswordException("La password es invalida");
+            throw new InvalidPasswordException("La contraseña es inválida.");
         }
-
-
         client.setPassword(bcrypt.encode(client.getPassword()));
         List<String> correos = clientRepository.getEmail();
-        listaCorreo.addAll(correos);
-
-        if (listaCorreo.contains(client.getEmail()) == true) {
-            throw new EmailAlreadyExitsException("El correo ingresado ya existe");
+        listEmail.addAll(correos);
+        if (listEmail.contains(client.getEmail()) == true) {
+            throw new EmailAlreadyExitsException("El correo ingresado ya existe.");
         }
-
         if (EmailValidator.isValid(client.getEmail()) == false) {
-            throw new InvalidEmailExecption("El correo esta mal ingresado.");
+            throw new InvalidEmailException("El correo esta mal ingresado.");
         }
-
         return clientRepository.save(client);
     }
-
 }

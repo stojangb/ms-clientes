@@ -32,7 +32,6 @@ public class Client {
 
 
     private String email;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean isActive;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

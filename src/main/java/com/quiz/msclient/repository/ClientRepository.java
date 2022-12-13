@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClientRepository extends JpaRepository<Client, UUID> {
-    @Query("select c.id, c.name from Client c")
-    List<Client> getIdAndName();
-    @Query("select c.id from Client c")
-    List<UUID> getId();
     @Query("select c.email from Client c")
     List<String> getEmail();
     @Query("select c.name from Client c")
