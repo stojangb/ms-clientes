@@ -1,0 +1,33 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.quiz'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//Docs
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	annotationProcessor 'org.projectlombok:lombok'
+	//Test
+	//testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+	//testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
